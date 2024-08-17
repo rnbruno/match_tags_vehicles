@@ -42,7 +42,7 @@ function my_enqueue_scripts() {
 add_action('wp_enqueue_scripts', 'my_enqueue_scripts');
 ```
 
-    1.2     No arquivo my-script.js adiciono
+2. No arquivo my-script.js adiciono o js + Jquery para fazer diversas chamadas com várias tags para testas o resultado dos matchs
 
 ```jQuery(document).ready(function ($) {
   // Adiciona um evento de clique a todos os elementos <li> com o atributo data-wc-key
