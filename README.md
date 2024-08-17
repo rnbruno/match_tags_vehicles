@@ -180,4 +180,12 @@ add_action('wp_enqueue_scripts', 'my_enqueue_scripts');
     Route::apiResource('/vehicles', App\Http\Controllers\Api\VehicleModelController::class);
     Route::post('/vehicles', [App\Http\Controllers\Api\VehicleModelController::class, 'vehicleTag']);
 
+    VehicleModel verificandos os itens na tabela wp_posts
+    VehicleModelController Buscando os dados no Model e calculando os matchs
+    VehicleModelRequest Requisição da API para validação das chamda
+    VehicleModelResources Transformando a coleção em json
+
+4.     Bando de dados
+   4.1    Banco de dados onde hospeda o WordPress.
+
 
