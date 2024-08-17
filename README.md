@@ -171,3 +171,12 @@ add_action('wp_enqueue_scripts', 'my_enqueue_scripts');
     return false;
   });
 });
+
+3.    API Laravel no server http://127.0.0.1:8000/api/vehicles
+
+    3.1 chamada routes/api
+
+    Route::apiResource('/vehicles', App\Http\Controllers\Api\VehicleModelController::class);
+    Route::post('/vehicles', [App\Http\Controllers\Api\VehicleModelController::class, 'vehicleTag']);
+
+
