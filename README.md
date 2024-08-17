@@ -1,9 +1,4 @@
 
-## About Matchs API Vehicles
-
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
-
-
 # API for Matching Vehicle Models with Product Tags
 
 Descrição do projeto
