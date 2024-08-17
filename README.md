@@ -170,7 +170,7 @@ add_action('wp_enqueue_scripts', 'my_enqueue_scripts');
     }
     return false;
   });
-});
+});```
 
 3.    API Laravel no server http://127.0.0.1:8000/api/vehicles
 
