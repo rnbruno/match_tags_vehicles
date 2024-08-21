@@ -20,7 +20,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::apiResource('/vehicles', App\Http\Controllers\Api\VehicleModelController::class);
 
-Route::apiResource('/vehicles', App\Http\Controllers\Api\VehicleModelController::class);
-
 Route::post('/vehicles', [App\Http\Controllers\Api\VehicleModelController::class, 'vehicleTag']);
 
