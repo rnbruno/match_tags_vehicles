@@ -189,3 +189,75 @@ add_action('wp_enqueue_scripts', 'my_enqueue_scripts');
    4.1    Banco de dados onde hospeda o WordPress.
 
 
+5.  Security API KEY
+
+    //Para atualização do Sanctum é necesário atualizar o composer.
+    //sudo apt-get install php8.1-xml
+    //composer self-update --2
+    //docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd sockets
+
+    5.1 Create migrate User e ApiKeys
+        php artisan make:migration ??
+        2014_10_12_000000_create_users1_table.php
+        2024_08_23_224439_create_api_keys_table
+        
+        php artisan migrate 
+
+        php artisan make:seeder UserSeeder
+        Instalo usuários fakes para teste / tu já podes adicionar usuários comuns
+        composer require fakerphp/faker --dev
+
+        php artisan db:seed --class=UserSeeder
+        
+        $table->id(); // Chave primária
+        $table->string('user_id')->unique(); // ID do usuário
+        $table->string('api_key')->unique(); // Chave única da API
+        $table->timestamps(); // Campos created_at e updated_at
+        Criei o USER1 por que a tabela já tinha o user comum
+
+        php artisan make:seeder ApiKeySeeder
+
+        $table->id(); // Chave primária
+        $table->string('user_id')->unique();
+        $table->string('hash')->unique(); // Chave única da API
+        $table->timestamps(); // Campos created_at e updated_at
+
+        php artisan db:seed --class=ApiKeiSeeder
+
+        Definition of the variables.
+
+        $hashedApiKey = Hash::make($user->api_key);
+
+        // Salvar o hash da chave no banco
+        ApiKey::create([
+            'user_id' => $user->user_id,
+            'hash' => $hashedApiKey,
+        ]);
+
+        Crio seeder
+        php artisan make:seeder ApiKeySeeder
+
+        atribuindo apikeys a todos usuários da tabela users
+
+        php artisan make:model ApiKey
+
+        Estou enviando o apiKey no header da requisição
+
+        let user_id = '73668ef2-b6b2-4f6e-8d88-c6d10439240f';
+        let apiKey = 'uKgp9NOts7sfNnYND4o0g2D6B2lNuDCNqmF86UvBKnMVGns46b2EwpG2CP0n';
+        
+        tagGroups.forEach(function(tags) {
+            console.log(tags);
+            $.ajax({
+                url: "http://localhost:8000/api/vehicles/",
+                type: "POST",
+                headers: {
+                'Authorization': 'Bearer ' + apiKey // Adiciona a chave API no cabeçalho
+                },
+                data: {
+                    data: tags, // Envia o grupo de tags atual
+                    user_id: user_id
+                },
+
+
+
