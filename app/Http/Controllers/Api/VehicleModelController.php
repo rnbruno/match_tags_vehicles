@@ -7,6 +7,11 @@ use App\Models\VehicleModel;
 use Illuminate\Http\Request;
 use App\Http\Requests\VehicleModelRequest;
 use App\Http\Resources\VehicleModelResource;
+use Illuminate\Support\Facades\DB;
+use App\Models\User1;
+use App\Models\ApiKey;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
 
 
 
@@ -45,9 +50,49 @@ class VehicleModelController extends Controller
     public static function vehicleTag(Request $request)
     {
 
-
         $tagsData = $request->input('data', []);
 
+        if ($request->has('user_id')) {
+            $userId = $request->input('user_id');
+            $query = DB::table('users1')->where('user_id', $userId);
+            $results = $query->get();
+            if ($results->isEmpty()) {
+                // O usuário não existe
+                return [
+                    'sucesso' => false,
+                    'mensagem' => 'Nenhum Usuário encontrado'
+                ];
+            }
+        } else {
+            return [
+              
+                'sucesso' => false,
+                'mensagem' => 'Nenhum Usuário enviado'
+            ];
+        }
+
+        $authorizationHeader = $request->header('Authorization');
+    
+        // Verifica se o cabeçalho segue o formato 'Bearer token'
+        if (Str::startsWith($authorizationHeader, 'Bearer ')) {
+            // Remove o prefixo 'Bearer ' para capturar somente o token/chave
+            $apiKey = Str::replaceFirst('Bearer ', '', $authorizationHeader);
+        }else{
+            return [
+                'sucesso' => false,
+                'mensagem' => 'Bearer error.'
+            ];
+        }
+
+        $hashedApiKey = ApiKey::where('user_id', $userId)->value('hash');
+
+        if (!Hash::check($apiKey, $hashedApiKey)) {
+            return [
+                'sucesso' => false,
+                'mensagem' => 'Key Api error.'
+            ];
+        } 
+        
         $products_tags = VehicleModel::getVehicleTags();
 
         // Transforma os resultados em uma coleção para manipulação fácil
